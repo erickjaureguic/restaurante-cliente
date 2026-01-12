@@ -7,82 +7,40 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
-    /* === PARCHE MÓVIL V3: RESPONSIVE TOTAL === */
+    /* Parche Seguro para Móvil */
     @media (max-width: 768px) {
       
-      /* 1. RESET GENERAL: Evita que la pantalla baile hacia los lados */
-      body, html, #nc-root {
-        overflow-x: hidden !important;
-        width: 100vw !important;
-        position: relative;
-      }
-
-      /* 2. ESTRUCTURA: Columna vertical (Barra arriba, contenido abajo) */
-      div[id="nc-root"] > div {
-        display: flex !important;
-        flex-direction: column !important;
-      }
-
-      /* 3. BARRA LATERAL (MENÚ): Ahora es un encabezado compacto */
-      aside, div[class*="Sidebar"] {
-        width: 100% !important;
-        min-width: 100% !important;
-        height: auto !important;
-        border-right: 0 !important;
-        border-bottom: 2px solid #e5e7eb !important;
-        padding: 10px !important;
-        background: #fff !important;
-        z-index: 100;
-      }
-      
-      /* Hacemos los enlaces del menú más compactos para que quepan */
-      aside a, div[class*="Sidebar"] a {
-        padding: 5px 10px !important;
-        display: inline-block !important; /* Para que se pongan uno al lado del otro si caben */
-      }
-
-      /* 4. ÁREA DE TRABAJO (El Editor): Ancho 100% real */
-      main, 
-      div[class*="CollectionPage"], 
-      div[class*="EditorContainer"] {
-        min-width: 0 !important; /* Crucial para romper anchos fijos */
-        width: 100% !important;
-        padding: 15px !important;
-        box-sizing: border-box !important;
-      }
-
-      /* 5. TARJETAS DE CONTENIDO (Los platillos en la lista) */
-      div[class*="Card"], a[class*="Card"] {
-        width: 100% !important;
-        margin-right: 0 !important;
-        margin-bottom: 10px !important;
-      }
-
-      /* 6. FORMULARIOS E INPUTS: Que no se salgan de la pantalla */
-      input, textarea, div[role="textbox"] {
-        max-width: 100% !important;
-        min-width: 0 !important;
-        width: 100% !important;
-        box-sizing: border-box !important; /* Para que el padding no sume al ancho */
-        font-size: 16px !important; /* Evita zoom en iPhone */
-      }
-      
-      /* 7. BARRA SUPERIOR (Donde dice "New Menú" o "Publish") */
-      div[class*="TopBar"] {
-        flex-wrap: wrap !important; /* Permite que los botones bajen si no caben */
-        height: auto !important;
-        gap: 10px !important;
-      }
-      
-      /* Botones más grandes para dedos */
-      button {
-        padding: 10px 15px !important;
-      }
-
-      /* 8. OCULTAR COSAS INNECESARIAS EN MÓVIL */
-      div[class*="PreviewPane"], /* Panel de preview */
-      div[class*="EditorToolbar"] { /* Barra de herramientas compleja */
+      /* 1. ELIMINAR EL PANEL DE LA DERECHA (Preview) 
+         Esto libera el 50% de la pantalla inmediatamente. */
+      div[class*="PreviewPaneContainer"] {
         display: none !important;
+      }
+
+      /* 2. ARREGLAR LA BARRA LATERAL (Sidebar)
+         Le decimos: "Deja de ser 'fixed' (pegajosa) y compórtate como un bloque normal".
+         Esto hará que aparezca ARRIBA del todo, y luego puedas bajar al contenido. */
+      div[class*="SidebarContainer"] {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin-bottom: 20px !important;
+        border-right: none !important;
+        border-bottom: 1px solid #ccc !important;
+      }
+
+      /* 3. FORZAR MODO COLUMNA
+         Obligamos a que la barra quede arriba y el editor abajo. */
+      div[class*="AppContainer"] {
+        flex-direction: column !important;
+        height: auto !important;
+        overflow: auto !important; /* Permitir scroll normal */
+      }
+      
+      /* 4. EXPANDIR EDITOR
+         Que el área de escribir use el espacio que dejó la preview */
+      div[class*="EditorContainer"] {
+        width: 100% !important;
       }
     }
   </style>
