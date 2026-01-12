@@ -5,6 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin del Restaurante</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <style>
+    /* Solo aplicamos esto en pantallas pequeñas (celulares) */
+    @media (max-width: 768px) {
+      
+      /* 1. Hacemos que el contenedor principal sea columna, no fila */
+      div[class*="AppContainer"] {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      /* 2. Ajustamos la barra lateral para que no sea fija y gigante */
+      div[class*="SidebarContainer"] {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-width: 0 !important;
+        flex-basis: auto !important;
+        padding: 10px !important;
+        overflow: visible !important;
+      }
+      
+      /* 3. Ocultamos el panel de la derecha (Preview) porque en el cel estorba */
+      div[class*="PreviewPaneContainer"] {
+        display: none !important;
+      }
+
+      /* 4. Forzamos al editor a usar el 100% del ancho */
+      div[class*="CollectionPageContainer"], 
+      div[class*="EditorContainer"] {
+        min-width: 100% !important;
+        width: 100% !important;
+      }
+      
+      /* Ajuste extra para que los campos no se salgan */
+      div[class*="ControlPaneContainer"] {
+        max-width: 100% !important;
+        padding: 10px !important;
+      }
+    }
+  </style>
+
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
