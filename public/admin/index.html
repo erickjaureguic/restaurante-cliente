@@ -7,42 +7,53 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
-    /* Solo aplicamos esto en pantallas pequeñas (celulares) */
-    @media (max-width: 768px) {
+    /* PARCHE DE EMERGENCIA PARA MÓVIL */
+    @media (max-width: 900px) {
       
-      /* 1. Hacemos que el contenedor principal sea columna, no fila */
-      div[class*="AppContainer"] {
+      /* 1. Atacamos el contenedor principal (usualmente es un div con display flex) */
+      div[id="nc-root"] > div {
         display: flex !important;
         flex-direction: column !important;
+        height: auto !important;
+        overflow: auto !important;
       }
 
-      /* 2. Ajustamos la barra lateral para que no sea fija y gigante */
-      div[class*="SidebarContainer"] {
-        position: relative !important;
+      /* 2. LA BARRA LATERAL (El culpable) 
+         Le decimos: "Deja de flotar, ponte arriba, ocupa todo el ancho y déjate de cosas raras" */
+      div[class*="SidebarContainer"], 
+      aside,
+      div[class*="sidebar"] {
+        position: relative !important; /* Vital: deja de ser fixed */
         width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
         height: auto !important;
-        min-width: 0 !important;
         flex-basis: auto !important;
-        padding: 10px !important;
+        border-right: none !important;
+        border-bottom: 5px solid #333 !important; /* Para separar visualmente */
         overflow: visible !important;
+        z-index: 1 !important;
       }
-      
-      /* 3. Ocultamos el panel de la derecha (Preview) porque en el cel estorba */
+
+      /* 3. EL CONTENIDO (Donde escribes) 
+         Le decimos: "Ponte debajo de la barra y ocupa todo el espacio" */
+      div[class*="CollectionPageContainer"], 
+      div[class*="EditorContainer"],
+      main {
+        padding: 20px 10px !important;
+        min-width: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important; /* Por si tenía margen a la izquierda */
+      }
+
+      /* 4. Ocultamos la previsualización y cosas extra que estorban */
       div[class*="PreviewPaneContainer"] {
         display: none !important;
       }
-
-      /* 4. Forzamos al editor a usar el 100% del ancho */
-      div[class*="CollectionPageContainer"], 
-      div[class*="EditorContainer"] {
-        min-width: 100% !important;
-        width: 100% !important;
-      }
       
-      /* Ajuste extra para que los campos no se salgan */
-      div[class*="ControlPaneContainer"] {
-        max-width: 100% !important;
-        padding: 10px !important;
+      /* Ajuste extra para los inputs */
+      input, textarea {
+        font-size: 16px !important; /* Evita zoom automático en iPhone */
       }
     }
   </style>
