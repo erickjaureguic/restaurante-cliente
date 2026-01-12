@@ -16,3 +16,17 @@ collections:
       - {label: "Descripción", name: "descripcion", widget: "text"}
       - {label: "Precio", name: "precio", widget: "number", value_type: "float"}
       - {label: "Foto", name: "imagen", widget: "image"}
+      # ... aquí arriba estaba lo de platillos ...
+
+  - name: "configuracion"
+    label: "Configuración General"
+    files:
+      - name: "datos"
+        label: "Información de Contacto"
+        file: "src/data/info.json" # Apuntamos al archivo que creaste
+        fields:
+          - {label: "Dirección", name: "direccion", widget: "string"}
+          - {label: "Teléfono / WhatsApp", name: "telefono", widget: "string"}
+          - {label: "Horarios", name: "horario", widget: "string"}
+          - {label: "Link de Facebook", name: "facebook", widget: "string"}
+          - {label: "Link de Instagram", name: "instagram", widget: "string"}
