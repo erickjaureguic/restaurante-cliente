@@ -1,8 +1,14 @@
 ---
-// 1. IMPORTAMOS LAS PIEZAS
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Platillo from '../components/Platillo.astro';
+
+// 1. IMPORTAMOS LA FUNCIÓN MÁGICA
+import { getCollection } from 'astro:content';
+
+// 2. PEDIMOS LOS PLATILLOS REALES DEL CMS
+// Esto buscará todos los archivos en src/content/platillos
+const todosLosPlatillos = await getCollection('platillos');
 ---
 
 <html lang="es">
@@ -20,26 +26,16 @@ import Platillo from '../components/Platillo.astro';
       <h2 style="text-align: center; margin: 2rem 0;">Nuestro Menú</h2>
       
       <div class="grilla-menu">
-        <Platillo 
-          titulo="Hamburguesa Clásica" 
-          precio="10.00" 
-          descripcion="Carne 100% Angus con queso cheddar y papas."
-          imagen="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=60"
-        />
+        
+        {todosLosPlatillos.map((platillo) => (
+          <Platillo 
+            titulo={platillo.data.title}
+            precio={platillo.data.precio}
+            descripcion={platillo.data.descripcion}
+            imagen={platillo.data.imagen}
+          />
+        ))}
 
-        <Platillo 
-          titulo="Pizza Italiana" 
-          precio="14.50" 
-          descripcion="Masa madre, tomate San Marzano y albahaca."
-          imagen="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=500&q=60"
-        />
-
-        <Platillo 
-          titulo="Tacos al Pastor" 
-          precio="8.00" 
-          descripcion="3 Tacos con piña, cilantro, cebolla y salsas."
-          imagen="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=500&q=60"
-        />
       </div>
     </main>
 
