@@ -7,57 +7,85 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
-    /* PARCHE DE EMERGENCIA PARA MÓVIL */
-    @media (max-width: 900px) {
+    /* === PARCHE MÓVIL V3: RESPONSIVE TOTAL === */
+    @media (max-width: 768px) {
       
-      /* 1. Atacamos el contenedor principal (usualmente es un div con display flex) */
+      /* 1. RESET GENERAL: Evita que la pantalla baile hacia los lados */
+      body, html, #nc-root {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        position: relative;
+      }
+
+      /* 2. ESTRUCTURA: Columna vertical (Barra arriba, contenido abajo) */
       div[id="nc-root"] > div {
         display: flex !important;
         flex-direction: column !important;
-        height: auto !important;
-        overflow: auto !important;
       }
 
-      /* 2. LA BARRA LATERAL (El culpable) 
-         Le decimos: "Deja de flotar, ponte arriba, ocupa todo el ancho y déjate de cosas raras" */
-      div[class*="SidebarContainer"], 
-      aside,
-      div[class*="sidebar"] {
-        position: relative !important; /* Vital: deja de ser fixed */
+      /* 3. BARRA LATERAL (MENÚ): Ahora es un encabezado compacto */
+      aside, div[class*="Sidebar"] {
         width: 100% !important;
         min-width: 100% !important;
-        max-width: 100% !important;
         height: auto !important;
-        flex-basis: auto !important;
-        border-right: none !important;
-        border-bottom: 5px solid #333 !important; /* Para separar visualmente */
-        overflow: visible !important;
-        z-index: 1 !important;
-      }
-
-      /* 3. EL CONTENIDO (Donde escribes) 
-         Le decimos: "Ponte debajo de la barra y ocupa todo el espacio" */
-      div[class*="CollectionPageContainer"], 
-      div[class*="EditorContainer"],
-      main {
-        padding: 20px 10px !important;
-        min-width: 100% !important;
-        width: 100% !important;
-        margin-left: 0 !important; /* Por si tenía margen a la izquierda */
-      }
-
-      /* 4. Ocultamos la previsualización y cosas extra que estorban */
-      div[class*="PreviewPaneContainer"] {
-        display: none !important;
+        border-right: 0 !important;
+        border-bottom: 2px solid #e5e7eb !important;
+        padding: 10px !important;
+        background: #fff !important;
+        z-index: 100;
       }
       
-      /* Ajuste extra para los inputs */
-      input, textarea {
-        font-size: 16px !important; /* Evita zoom automático en iPhone */
+      /* Hacemos los enlaces del menú más compactos para que quepan */
+      aside a, div[class*="Sidebar"] a {
+        padding: 5px 10px !important;
+        display: inline-block !important; /* Para que se pongan uno al lado del otro si caben */
+      }
+
+      /* 4. ÁREA DE TRABAJO (El Editor): Ancho 100% real */
+      main, 
+      div[class*="CollectionPage"], 
+      div[class*="EditorContainer"] {
+        min-width: 0 !important; /* Crucial para romper anchos fijos */
+        width: 100% !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+      }
+
+      /* 5. TARJETAS DE CONTENIDO (Los platillos en la lista) */
+      div[class*="Card"], a[class*="Card"] {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 10px !important;
+      }
+
+      /* 6. FORMULARIOS E INPUTS: Que no se salgan de la pantalla */
+      input, textarea, div[role="textbox"] {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important; /* Para que el padding no sume al ancho */
+        font-size: 16px !important; /* Evita zoom en iPhone */
+      }
+      
+      /* 7. BARRA SUPERIOR (Donde dice "New Menú" o "Publish") */
+      div[class*="TopBar"] {
+        flex-wrap: wrap !important; /* Permite que los botones bajen si no caben */
+        height: auto !important;
+        gap: 10px !important;
+      }
+      
+      /* Botones más grandes para dedos */
+      button {
+        padding: 10px 15px !important;
+      }
+
+      /* 8. OCULTAR COSAS INNECESARIAS EN MÓVIL */
+      div[class*="PreviewPane"], /* Panel de preview */
+      div[class*="EditorToolbar"] { /* Barra de herramientas compleja */
+        display: none !important;
       }
     }
   </style>
-
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
