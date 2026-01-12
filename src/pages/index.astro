@@ -1,0 +1,55 @@
+---
+// 1. IMPORTAMOS LAS PIEZAS
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Platillo from '../components/Platillo.astro';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Restaurante Demo</title>
+  </head>
+  <body>
+
+    <Navbar />
+    <Hero />
+
+    <main>
+      <h2 style="text-align: center; margin: 2rem 0;">Nuestro Menú</h2>
+      
+      <div class="grilla-menu">
+        <Platillo 
+          titulo="Hamburguesa Clásica" 
+          precio="10.00" 
+          descripcion="Carne 100% Angus con queso cheddar y papas."
+          imagen="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=60"
+        />
+
+        <Platillo 
+          titulo="Pizza Italiana" 
+          precio="14.50" 
+          descripcion="Masa madre, tomate San Marzano y albahaca."
+          imagen="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=500&q=60"
+        />
+
+        <Platillo 
+          titulo="Tacos al Pastor" 
+          precio="8.00" 
+          descripcion="3 Tacos con piña, cilantro, cebolla y salsas."
+          imagen="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=500&q=60"
+        />
+      </div>
+    </main>
+
+  </body>
+</html>
+
+<style>
+  body { margin: 0; font-family: sans-serif; background: #f9f9f9; }
+  main { max-width: 1000px; margin: 0 auto; padding: 20px; }
+  .grilla-menu {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;
+  }
+</style>
